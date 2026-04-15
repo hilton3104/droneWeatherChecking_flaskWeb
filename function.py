@@ -38,8 +38,8 @@ def check_drone_safety(wind_speed, is_rainy, current_time, af_night_time, bf_nig
     is_daytime = af_night_time < current_time < bf_night_time
 
     if wind_speed < 15 and not is_rainy and is_daytime:
-        return "✅ Safe to fly the drone"
+        return "✅ 可以安全地飛行無人機"
     elif wind_speed < 30 and not is_rainy and is_daytime:
-        return "⚠️ Warning, fly with caution"
+        return "⚠️ 請小心飛行無人機"
     else:
-        return "❌ Not safe to fly the drone"
+        return "❌ 不安全，建議不要飛行無人機"
