@@ -1,0 +1,22 @@
+# Virtual Environment
+drone_venv/
+
+# IDE settings
+.vscode/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# macOS specific files
+.DS_Store
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# Tests and temporary files
+test.py

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Weather Safety</title>
+</head>
+<body>
+    <h1>無人機天氣安全檢查</h1>
+
+    <p id="location_info">位置：</p>
+
+    <label>選擇地區：</label><br>
+    <select id="locationSelect">
+        <option value="京士柏">京士柏</option>
+        <option value="大美督">大美督</option>
+        <option value="西貢">西貢</option>
+    </select>
+    <button id="checkWeatherBtn">查詢天氣狀況</button>
+
+    <div id="weather_info">
+        <p>溫度：-- °C</p>
+        <p>風速：-- km/h</p>
+        <p>當前時間：--</p>
+        <p>有雨：--</p>
+    </div>
+
+    <div id="safety_status">
+        --
+    </div>
+
+    <script>
+        const select = document.getElementById('locationSelect');
+        const checkWeatherBtn = document.getElementById('checkWeatherBtn');
+        const weatherInfoDiv = document.getElementById('weather_info');
+        const safetyStatusDiv = document.getElementById('safety_status');
+        const locationInfoP = document.getElementById('location_info');
+
+        checkWeatherBtn.addEventListener('click', function() {
+            const location = select.value;
+            locationInfoP.textContent = `位置：${location}`;
+
+            weatherInfoDiv.innerHTML = '<p>加載中...</p>';
+            safetyStatusDiv.textContent = '加載中...';
+
+            fetch(`/api/weather?location=${encodeURIComponent(location)}`)
+                .then(response => response.json())
+                .then(data => {
+                    weatherInfoDiv.innerHTML = `
+                        <p>溫度：${data.temperature ?? 'N/A'} °C</p>
+                        <p>風速：${data.wind_speed ?? 'N/A'} km/h</p>
+                        <p>當前時間：${data.current_time ?? 'N/A'}</p>
+                        <p>有雨：${data.is_rainy ? '是' : '否'}</p>
+                    `;
+                    safetyStatusDiv.textContent = data.safety_message;
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    weatherInfoDiv.innerHTML = `
+                        <p>加載失敗，請重試</p>
+                        <button onclick="location.reload()">重新加載</button>`;
+                    safetyStatusDiv.textContent = '無法獲取天氣資訊';
+                })
+
+        })
+    </script>
+</body>
+</html>
