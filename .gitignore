@@ -1,5 +1,6 @@
 # Virtual Environment
 drone_venv/
+venv/
 
 # IDE settings
 .vscode/

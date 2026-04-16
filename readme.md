@@ -20,7 +20,7 @@ cd droneWeatherChecking_flaskWeb
 
 ### 2. Create and activate virtual environment
 ```bash
-python -m vene venv
+python -m venv venv
 source venv/bin/activate    # macOS/Linux
 # or
 venv\Scripts\activate   # Windows
